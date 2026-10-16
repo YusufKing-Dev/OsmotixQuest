@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { api } from "@/lib/client";
+import { formatUk } from "@/lib/campaign";
 
 const HOURS_48 = 48 * 60 * 60 * 1000;
 
@@ -65,7 +66,7 @@ export default function QuestPanel({
     onChange();
   }
 
-  const fmt = (iso: string) => new Date(iso).toISOString().replace("T", " ").slice(0, 16) + " UTC";
+  const fmt = formatUk;
   const ready = quest.kind === "username" ? xUser.trim() && tgUser.trim() : value.trim();
 
   return (

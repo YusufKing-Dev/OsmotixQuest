@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { CAMPAIGN_START_UTC } from "@/lib/campaign";
 import { fail, json } from "@/lib/http";
 
 export const dynamic = "force-dynamic";
@@ -13,11 +14,10 @@ export async function GET() {
   if (error) return fail("Could not load quests.", 500);
 
   const quests = (data ?? []) as any[];
-  const opens = quests.map((q) => q.opens_at).filter(Boolean).sort();
   return json({
     quests,
     now: new Date().toISOString(),
-    campaignStart: process.env.CAMPAIGN_START_UTC ?? opens[0] ?? null,
+    campaignStart: process.env.CAMPAIGN_START_UTC ?? CAMPAIGN_START_UTC,
     config: {
       xUrl: process.env.X_PROFILE_URL ?? null,
       tgUrl: process.env.TELEGRAM_GROUP_URL ?? null,

@@ -1,3 +1,5 @@
+import { formatUk } from "@/lib/campaign";
+
 const TOTAL = 30;
 const DAY_MS = 86_400_000;
 
@@ -10,7 +12,7 @@ export default function DayStrip({ start, now }: { start: string | null; now: st
 
   let label = "Dates will be announced soon";
   if (start) {
-    if (day === 0) label = `Starts ${new Date(start).toISOString().slice(0, 10)} (UTC)`;
+    if (day === 0) label = `Starts ${formatUk(start)}`;
     else if (day > TOTAL) label = "The 30-day campaign has ended";
     else label = `Day ${day} of ${TOTAL}`;
   }
